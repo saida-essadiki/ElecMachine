@@ -20,7 +20,7 @@ public class Main {
         String driver = "com.mysql.jdbc.Driver";
         String DBpath = "//localhost:3306/qadb";
         String username = "root";
-        String password = "Hhh00010014497";
+        String password = "Hh4497";
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
