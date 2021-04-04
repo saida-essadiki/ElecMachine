@@ -25,12 +25,18 @@ public class Main {
         Statement stmt = null;
         ResultSet rs = null;
 
+        
+        // IN GENERAl try and catches are here to help us find our errors and where they happen.
+        
+        
         try {
             Class.forName(driver).newInstance();
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "poo!!", ex);
         }
 
+        
+        // Here we are trying to create connection to our database, with the variables are created created at the beginning the code which are related to our database information details 
         try {
             // con = DriverManager.getConnection("jdbc:mysql:" + DBpath + ";create=false");
             // // Creating connection to the database
@@ -79,6 +85,10 @@ public class Main {
                 sql = "INSERT INTO FIRSTTABLE(ID, FIRSTNAME, LASTNAME) VALUES(4, 'Urho', 'Kekkonen')";
                 stmt.executeUpdate(sql);
                 sql = "INSERT INTO FIRSTTABLE(ID, FIRSTNAME, LASTNAME) VALUES(5, 'Tarja', 'Halonen')";
+                stmt.executeUpdate(sql);
+                sql = "INSERT INTO FIRSTTABLE(ID, FIRSTNAME, LASTNAME) VALUES(6, 'Hossein', 'Gholizadeh')";
+                stmt.executeUpdate(sql);
+                sql = "INSERT INTO FIRSTTABLE(ID, FIRSTNAME, LASTNAME) VALUES(7, 'Saija', 'Unnonen')";
                 stmt.executeUpdate(sql);
             } catch (Exception ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.WARNING, "Adding a row failed!", ex);
