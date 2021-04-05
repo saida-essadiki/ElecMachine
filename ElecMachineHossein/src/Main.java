@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args) {
 
         String driver = "com.mysql.jdbc.Driver";
-        String DBpath = "//localhost:3306/qadb";
+        String DBpath = "//localhost:3306/election_machine";
         String username = "root";
         String password = "Hh4497";
         Connection con = null;
@@ -44,88 +44,50 @@ public class Main {
                                                                                             // database
 
             stmt = con.createStatement();
-
-            // Create a Table to the Database
-
             String sql;
 
-            sql = "DROP TABLE FIRSTTABLE";
+            // Here we are going through all answers from candidate which is available in database in answers TABLE
+            // we have also have an array for this customer answers
+            // We compare the answers of a customer for all question (1 by 1 for answers)
+            
+            // going through Candidates (for example for first candidate)
+            for(int i = 1; i < 2; i++){
+            	System.out.println(i);
+            	// going through questions (19 question available)
+                	
+        	        // 1st part is candidate ID and 2nd part is question number
+        	        int[][] ans = new int[1][19];
+        	        
+                	sql = "SELECT * FROM ANSWERS";
+                	
+                	// for test
+                	//System.out.println(sql);
+                	rs = stmt.executeQuery(sql); // Note now this is a query not an update
+        	        
+    	         	int j=1;
+        	        while (rs.next()) {
 
-            try {
-                stmt.executeUpdate(sql);
-            } catch (Exception ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.WARNING, "Failed dropping the Table", ex);
-                // System.exit(0);
-            }
-
-//            sql = "CREATE TABLE FIRSTTABLE ("
-//                    + "ID INTEGER GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) PRIMARY KEY,"
-//                    + "FIRSTNAME VARCHAR(40) NOT NULL,"
-//                    + "LASTNAME VARCHAR(40) NOT NULL)";
-
-            sql = "CREATE TABLE `qadb`.`FIRSTTABLE` (" + "`id` INT NOT NULL AUTO_INCREMENT, "
-            //sql = "CREATE TABLE `demo`.`FIRSTTABLE` (" + "`id` INT NOT NULL, "
-                    + "`FIRSTNAME` VARCHAR(45) NOT NULL," + "`LASTNAME` VARCHAR(45) NOT NULL,"
-                    + "  PRIMARY KEY (`id`))";
-
-            try {
-                stmt.executeUpdate(sql);
-            } catch (Exception ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.WARNING, "Creating table failed", ex);
-                // System.exit(0);
-            }
-
-            try {
-                sql = "INSERT INTO FIRSTTABLE(ID, FIRSTNAME, LASTNAME) VALUES(1, 'Mauno', 'Koivisto')";
-                stmt.executeUpdate(sql);
-                sql = "INSERT INTO FIRSTTABLE(ID, FIRSTNAME, LASTNAME) VALUES(2, 'Tellervo', 'Koivisto')";
-                stmt.executeUpdate(sql);
-                sql = "INSERT INTO FIRSTTABLE(ID, FIRSTNAME, LASTNAME) VALUES(3, 'Martti', 'Ahtisaari')";
-                stmt.executeUpdate(sql);
-                sql = "INSERT INTO FIRSTTABLE(ID, FIRSTNAME, LASTNAME) VALUES(4, 'Urho', 'Kekkonen')";
-                stmt.executeUpdate(sql);
-                sql = "INSERT INTO FIRSTTABLE(ID, FIRSTNAME, LASTNAME) VALUES(5, 'Tarja', 'Halonen')";
-                stmt.executeUpdate(sql);
-                sql = "INSERT INTO FIRSTTABLE(ID, FIRSTNAME, LASTNAME) VALUES(6, 'Hossein', 'Gholizadeh')";
-                stmt.executeUpdate(sql);
-                sql = "INSERT INTO FIRSTTABLE(ID, FIRSTNAME, LASTNAME) VALUES(7, 'Saija', 'Unnonen')";
-                stmt.executeUpdate(sql);
-            } catch (Exception ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.WARNING, "Adding a row failed!", ex);
-            }
-
-            try {
-                sql = "DELETE FROM FIRSTTABLE WHERE ID = 2";
-                stmt.executeUpdate(sql);
-                System.out.println("Was here: For debuging!");
-            } catch (Exception ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.WARNING, "Deleting a row failed!", ex);
-                // System.exit(0);
-            }
-
-            // Reading information from the table
-            sql = "SELECT * FROM FIRSTTABLE";
-            rs = stmt.executeQuery(sql); // Huomaa nyt on kyseessä query ei update
-
-            // Trying to read data without first using rs.next()
-            try {
-                int i = rs.getInt("ID"); // There is also other version for getInt which relies on column index number
-                System.out.println("i: " + i + "\n");
-            } catch (Exception ex) {
-                System.out.println("*** Does not work without first using rs.next()!!! ***");
-                // Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            // Going through the results
-            while (rs.next()) {
-                int i = rs.getInt("ID");
-                System.out.println("i: " + i);
-            }
-
-            // Closing ResultSet, Statement and Connection
-
+        	        	if (i==rs.getInt("CANDIDATE_ID")) {
+        	        		
+        	        		// just for test to find out were is the bug
+                        	// System.out.println("CANDIDATE_ID is "+ rs.getInt("CANDIDATE_ID"));
+                        	// System.out.println(i+" and "+j);
+                        	int Answer = rs.getInt("ANSWER");
+            	            ans[i-1][j-1] = Answer;
+            	            
+            	            // for test that ans array is working
+            	            System.out.println(ans[i-1][j-1]);
+            	            // System.out.println("Answer of candidate "+i+" for question "+j+ " is "+ ans[i-1][j-1]);
+            	            j++;
+        	        	}
+        	        }
+  	
+                }  
+            	
+            
+    
         } catch (Exception e) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Something went wrong in the whole process!", e);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Something went wrong in the whole process!!", e);
         } finally {
 
             System.out.println("Closing everything!");
