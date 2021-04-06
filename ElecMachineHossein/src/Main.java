@@ -103,25 +103,65 @@ public class Main {
   	
                 }
             // here we are going to calculate the point of customer1 similarity to each candidate in percent
-            double[][] point = new double[1][num];
+            double[] point = new double[num];
             for (int m=0;m<num;m++) {
-                point[0][m] = 0;
+                point[m] = 0;
             	for(int n=0;n<que;n++) {
-                    System.out.println("Ready?!? "+ m + " "+ n);
+
                     
                     //for test
-                    System.out.println("candidateAns "+ans[m][n]);
-                    System.out.println("customer "+ customer1_Ans[n]);
-                    double abs = 0;
+                    //System.out.println("Ready?!? "+ m + " "+ n);
+                    //System.out.println("candidateAns "+ans[m][n]);
+                    //System.out.println("customer "+ customer1_Ans[n]);
+                    double abs;
                     if(ans[m][n]<customer1_Ans[n]) {
-                    	abs = (4-customer1_Ans[n]+ans[m][n])/4;
+                    	abs = ((4-customer1_Ans[n]+ans[m][n])*0.25*5.263);
+                    	//abs = (3*0.25);
                     }else {
-                    	abs =(4-ans[m][n]+customer1_Ans[n])/4;
+                    	abs =((4-ans[m][n]+customer1_Ans[n])*0.25*5.263);
+                    	//abs = (1*0.25);
+
                     }
-                    point[0][m] = point[0][m]+abs;
-                    System.out.println(point[0][m]);
+                    // for test
+                    //System.out.println("abs: "+abs);
+                	point[m] = point[m]+abs;
+                    //System.out.printf("%.2f\n",point[m]);
+
             	}
             }
+            System.out.printf("%.2f\n",point[0]);
+            System.out.printf("%.2f\n",point[1]);
+            System.out.printf("%.2f\n",point[2]);
+            System.out.printf("%.2f\n",point[3]);
+
+	        try {
+	            sql = "INSERT INTO customers(ID, FIRSTNAME, LASTNAME) VALUES(1, 'Mauno', 'Koivisto')";
+	            stmt.executeUpdate(sql);
+	            sql = "INSERT INTO customers(ID, FIRSTNAME, LASTNAME) VALUES(2, 'Tellervo', 'Koivisto')";
+	            stmt.executeUpdate(sql);
+	            sql = "INSERT INTO customers(ID, FIRSTNAME, LASTNAME) VALUES(3, 'Martti', 'Ahtisaari')";
+	            stmt.executeUpdate(sql);
+	            sql = "INSERT INTO customers(ID, FIRSTNAME, LASTNAME) VALUES(4, 'Urho', 'Kekkonen')";
+	            stmt.executeUpdate(sql);
+	            sql = "INSERT INTO customers(ID, FIRSTNAME, LASTNAME) VALUES(5, 'Tarja', 'Halonen')";
+	            stmt.executeUpdate(sql);
+	            sql = "INSERT INTO customers(ID, FIRSTNAME, LASTNAME) VALUES(6, 'Hossein', 'Gholizadeh')";
+	            stmt.executeUpdate(sql);
+	            sql = "INSERT INTO customers(ID, FIRSTNAME, LASTNAME) VALUES(7, 'Saija', 'Unnonen')";
+	            stmt.executeUpdate(sql);
+	        } catch (Exception ex) {
+	            Logger.getLogger(Main.class.getName()).log(Level.WARNING, "Adding a row failed!", ex);
+	        } 
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             	
             
     
