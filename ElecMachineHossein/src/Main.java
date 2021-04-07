@@ -135,35 +135,15 @@ public class Main {
             System.out.printf("%.2f\n",point[3]);
 
 	        try {
-	            sql = "INSERT INTO customers(ID, FIRSTNAME, LASTNAME) VALUES(1, 'Mauno', 'Koivisto')";
+	            sql = "INSERT INTO CUSTOMER_RESAULT(CUSTOMER_ID, COMPARE_CAN1, COMPARE_CAN2, COMPARE_CAN3, COMPARE_CAN4) VALUES(3,"+ point[0]+","+ point[1]+","+ point[2]+","+ point[3]+")";
+
+
 	            stmt.executeUpdate(sql);
-	            sql = "INSERT INTO customers(ID, FIRSTNAME, LASTNAME) VALUES(2, 'Tellervo', 'Koivisto')";
-	            stmt.executeUpdate(sql);
-	            sql = "INSERT INTO customers(ID, FIRSTNAME, LASTNAME) VALUES(3, 'Martti', 'Ahtisaari')";
-	            stmt.executeUpdate(sql);
-	            sql = "INSERT INTO customers(ID, FIRSTNAME, LASTNAME) VALUES(4, 'Urho', 'Kekkonen')";
-	            stmt.executeUpdate(sql);
-	            sql = "INSERT INTO customers(ID, FIRSTNAME, LASTNAME) VALUES(5, 'Tarja', 'Halonen')";
-	            stmt.executeUpdate(sql);
-	            sql = "INSERT INTO customers(ID, FIRSTNAME, LASTNAME) VALUES(6, 'Hossein', 'Gholizadeh')";
-	            stmt.executeUpdate(sql);
-	            sql = "INSERT INTO customers(ID, FIRSTNAME, LASTNAME) VALUES(7, 'Saija', 'Unnonen')";
-	            stmt.executeUpdate(sql);
+
 	        } catch (Exception ex) {
 	            Logger.getLogger(Main.class.getName()).log(Level.WARNING, "Adding a row failed!", ex);
 	        } 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            	
-            
+
     
         } catch (Exception e) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Something went wrong in the whole process!!", e);
