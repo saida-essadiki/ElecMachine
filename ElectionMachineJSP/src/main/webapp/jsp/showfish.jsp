@@ -38,8 +38,8 @@
                 <div class="form-elements">
                    	<ol>
                    	<p>HERE :</p>
-							<c:forEach var="fish" items="${requestScope.fishlist}" >
-							<li> ${questionText.id}: ${questionText.breed}
+							<c:forEach var="question" items="${requestScope.questionlist}" >
+							<li> ${question.id}: ${question.questionText}
 							</c:forEach>
 					</ol>
                     <label>Would you recommend More police in the city?</label><br>

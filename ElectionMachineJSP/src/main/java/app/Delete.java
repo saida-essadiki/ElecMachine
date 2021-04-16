@@ -20,7 +20,7 @@ import data.Question;
 public class Delete extends HttpServlet {
 	private Dao dao;
 	public void init() {
-		dao=new Dao("//localhost:3306/fishdatabase", "root", "Hh4497");
+		dao=new Dao("//localhost:3306/election_machine", "root", "Hh4497");
 	}
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
