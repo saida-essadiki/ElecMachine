@@ -1,14 +1,14 @@
 package data;
 
-public class Fish {
+public class Question {
 	private int id;
-	private String breed;
-	public Fish(String id, String breed) {
+	private String questionText;
+	public Question(String id, String questionText) {
 		// TODO Auto-generated constructor stub
 		setId(id);
-		this.breed=breed;
+		this.questionText=questionText;
 	}
-	public Fish() {
+	public Question() {
 		// TODO Auto-generated constructor stub
 	}
 	public int getId() {
@@ -25,10 +25,11 @@ public class Fish {
 			//Do nothing - the value of id won't be changed
 		}
 	}
-	public String getBreed() {
-		return breed;
+	public String getQuestion() {
+		return questionText;
 	}
-	public void setBreed(String breed) {
-		this.breed = breed;
+	public void setQuestion(String questionText) {
+		this.questionText = questionText;
 	}
+
 }

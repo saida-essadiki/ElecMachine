@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.Dao;
-import data.Fish;
+import data.Question;
 
 @WebServlet(
     name = "Delete",
@@ -26,11 +26,11 @@ public class Delete extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
 	     throws IOException, ServletException {
 		String id=request.getParameter("id");
-		ArrayList<Fish> list=null;
+		ArrayList<Question> list=null;
 		if (dao.getConnection()) {
-			list=dao.deleteFish(id);
+			list= dao.deleteQuestion(id);
 		}
-		request.setAttribute("fishlist", list);
+		request.setAttribute("Questionlist", list);
 		RequestDispatcher rd=request.getRequestDispatcher("/jsp/showfish.jsp");
 		rd.forward(request, response);
 	}

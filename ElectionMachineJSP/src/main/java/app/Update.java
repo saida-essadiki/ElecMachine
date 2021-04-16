@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.Dao;
-import data.Fish;
+import data.Question;
 
 @WebServlet(
     name = "Update",
@@ -30,16 +30,16 @@ public class Update extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) 
 	     throws IOException, ServletException {
 		String id=request.getParameter("id");
-		String breed=request.getParameter("breed");
+		String questionText=request.getParameter("questionText");
 		
-		Fish f=new Fish(id, breed);
+		Question f=new Question(id, questionText);
 		
-		ArrayList<Fish> list=null;
+		ArrayList<Question> list=null;
 		if (dao.getConnection()) {
-			list=dao.updateFish(f);
+			list=dao.updateQuestion(f);
 		}
 		
-		request.setAttribute("fishlist", list);
+		request.setAttribute("questionlist", list);
 		RequestDispatcher rd=request.getRequestDispatcher("/jsp/showfish.jsp");
 		rd.forward(request, response);
 	}

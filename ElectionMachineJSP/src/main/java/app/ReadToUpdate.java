@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.Dao;
-import data.Fish;
+import data.Question;
 
 /**
  * Servlet implementation class ReadToUpdate
@@ -37,9 +37,9 @@ public class ReadToUpdate extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String id=request.getParameter("id");
-		Fish f=null;
+		Question f=null;
 		if (dao.getConnection()) {
-			f=dao.readFish(id);
+			f=dao.readQuestion(id);
 		}
 		request.setAttribute("fish", f);
 		
