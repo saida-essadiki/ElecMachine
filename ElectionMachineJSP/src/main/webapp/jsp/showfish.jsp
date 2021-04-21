@@ -33,15 +33,34 @@
     <div class="form-container">
 
         <form id="survey-form">
+        	<!--  begin - just for test database connection -->
+        	<div class="test"> 
+        	<p>Connction test</p>
+        	<%
+        	
+        	%>
+        	<%
+			ArrayList<Question> questionList=(ArrayList<Question>)request.getAttribute("questionlist");
+			
+			for (int i=0;questionList!=null && i<questionList.size();i++){
+				Question f=questionList.get(i);
+				out.println(f.getId()+": "+f.getQuestion());
+			}
+			%>
+        	</div>
+        	<hr>
+        	<!--  End - just for test database connection -->
 
             <div class="part3">
+                <ul>
+                 	<li>HERE2 :
+					<c:forEach var="question" items="${requestScope.questionlist}" >
+					<li> ${question.id}: ${question.questionText}
+					</c:forEach>
+				</ul>
+				<hr>
                 <div class="form-elements">
-                   	<ol>
-                   	<p>HERE :</p>
-							<c:forEach var="question" items="${requestScope.questionlist}" >
-							<li> ${question.id}: ${question.questionText}
-							</c:forEach>
-					</ol>
+
                     <label>Would you recommend More police in the city?</label><br>
 
                     <p></p>

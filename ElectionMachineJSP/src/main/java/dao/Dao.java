@@ -49,8 +49,8 @@ public class Dao {
 			ResultSet RS=stmt.executeQuery("select * from questions");
 			while (RS.next()){
 				Question f=new Question();
-				f.setId(RS.getInt("id"));
-				f.setQuestion(RS.getString("question"));
+				f.setId(RS.getInt("QUESTION_ID"));
+				f.setQuestion(RS.getString("QUESTION"));
 				list.add(f);
 			}
 			return list;
@@ -94,8 +94,8 @@ public class Dao {
 			ResultSet RS=pstmt.executeQuery();
 			while (RS.next()){
 				f=new Question();
-				f.setId(RS.getInt("id"));
-				f.setQuestion(RS.getString("question"));
+				f.setId(RS.getInt("QUESTION_ID"));
+				f.setQuestion(RS.getString("QUESTION"));
 			}
 			return f;
 		}
