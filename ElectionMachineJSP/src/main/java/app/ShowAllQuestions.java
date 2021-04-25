@@ -16,8 +16,8 @@ import data.Question;
 /**
  * Servlet implementation class ShowFish
  */
-@WebServlet("/showquestion")
-public class ShowQuestion extends HttpServlet {
+@WebServlet("/showallquestions")
+public class ShowAllQuestions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Dao dao=null;
 	
@@ -25,12 +25,13 @@ public class ShowQuestion extends HttpServlet {
 	public void init() {
 		
 		dao = new Dao("jdbc:mysql://localhost:3306/election_machine", "root", "Hh4497");
+
 	}
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowQuestion() {
+    public ShowAllQuestions() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,29 +39,15 @@ public class ShowQuestion extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    
-	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) 
-	     throws IOException {
-		response.sendRedirect("index.html");
-	}
-	public void doPost(HttpServletRequest request, HttpServletResponse response) 
-	     throws IOException, ServletException {
-		String id=request.getParameter("id");
-		String questionText=request.getParameter("questionText");
-		
-    
- 		ArrayList<Question> singleQuestion=null;
-		
-		//////////////////////////////////////
-		Question q=new Question(id, questionText);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<Question> list=null;
 		if (dao.getConnection()) {
-			singleQuestion = dao.readQuestion(q);
+			list = dao.readAllQuestion();
 		}
 		else {
 			System.out.println("No connection to database for read questions");
 		}
-		request.setAttribute("question", singleQuestion);
+		request.setAttribute("questionlist", list);
 		
 		RequestDispatcher rd=request.getRequestDispatcher("/jsp/showquestion.jsp");
 		rd.forward(request, response);

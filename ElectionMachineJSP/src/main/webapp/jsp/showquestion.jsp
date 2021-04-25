@@ -6,10 +6,6 @@
  <%@ page import="java.sql.DriverManager" %>   
  <%@ page import="dao.Dao" %> 
  <%@ page import="test.DbManager" %>   
-   
- 
-  
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
     
  
     
@@ -65,16 +61,6 @@
         	
 
 			%>
-			<hr>
-			<ol>
-			<c:forEach var="question" items="${requestScope.questionlist}" >
-			<li>${question.id}: ${question.questionText}
-			</c:forEach>
-			</ol>
-			<hr>
-        	</div>
-        	<hr>
-        	<!--  End - just for test database connection -->
 
             <div class="part3">
                 <div class="form-elements">

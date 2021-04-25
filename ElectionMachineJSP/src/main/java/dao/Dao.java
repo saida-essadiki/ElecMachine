@@ -65,6 +65,28 @@ public class Dao {
 		}
 	}
 	
+	// readQuestion() method
+	public ArrayList<Question> readQuestion(Question q) {
+		ArrayList<Question> singleQuestion=new ArrayList<>();
+		try {
+			String sql="SELECT * FROM questions WHERE QUESTION_ID=?";
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, q.getId());
+			ResultSet RS=pstmt.executeQuery(sql);
+
+			q.setId(RS.getInt("QUESTION_ID"));
+			q.setQuestion(RS.getString("QUESTION"));
+			singleQuestion.add(q);
+			return singleQuestion;
+
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
+	
+	
 	// update question text with updateQuestion(Question q) method
 	public ArrayList<Question> updateQuestion(Question q) {
 		try {
@@ -80,6 +102,8 @@ public class Dao {
 			return null;
 		}
 	}
+	
+	// deleteQuestion() method
 	public ArrayList<Question> deleteQuestion(String id) {
 		try {
 			String sql="delete from questions where QUESTION_ID=?";
