@@ -1,17 +1,15 @@
 package dao;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
-
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import data.Question;
-
-import java.sql.Connection;
 
 public class Dao {
 	private String url;
@@ -25,6 +23,8 @@ public class Dao {
 		this.pass=pass;
 	}
 	
+	// create getconnection method - create a connection to database 
+		
 	public boolean getConnection() {
 		try {
 	        if (conn == null || conn.isClosed()) {
@@ -34,6 +34,7 @@ public class Dao {
 	                throw new SQLException(e);
 	            }
 	            conn = DriverManager.getConnection(url, user, pass);
+	            System.out.println("conn is created!!");
 	        }
 	        return true;
 		}
@@ -42,16 +43,20 @@ public class Dao {
 			return false;
 		}
 	}
+	
+	// readAllQuestion() method
 	public ArrayList<Question> readAllQuestion() {
 		ArrayList<Question> list=new ArrayList<>();
 		try {
+			String sql = "SELECT * FROM questions";
+			getConnection();
 			Statement stmt=conn.createStatement();
-			ResultSet RS=stmt.executeQuery("select * from questions");
+			ResultSet RS=stmt.executeQuery(sql);
 			while (RS.next()){
-				Question f=new Question();
-				f.setId(RS.getInt("QUESTION_ID"));
-				f.setQuestion(RS.getString("QUESTION"));
-				list.add(f);
+				Question q=new Question();
+				q.setId(RS.getInt("QUESTION_ID"));
+				q.setQuestion(RS.getString("QUESTION"));
+				list.add(q);
 			}
 			return list;
 		}
@@ -59,12 +64,15 @@ public class Dao {
 			return null;
 		}
 	}
-	public ArrayList<Question> updateQuestion(Question f) {
+	
+	// update question text with updateQuestion(Question q) method
+	public ArrayList<Question> updateQuestion(Question q) {
 		try {
-			String sql="update questions set QUESTION=? where QUESTION_ID=?";
+			String sql="UPDATE questions SET QUESTION= ? WHERE QUESTION_ID=?";
+			getConnection();
 			PreparedStatement pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, f.getQuestion());
-			pstmt.setInt(2, f.getId());
+			pstmt.setString(1, q.getQuestion());
+			pstmt.setInt(2, q.getId());
 			pstmt.executeUpdate();
 			return readAllQuestion();
 		}

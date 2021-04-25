@@ -17,19 +17,24 @@ import data.Question;
  * Servlet implementation class ShowFish
  */
 @WebServlet("/showfish")
-public class ShowFish extends HttpServlet {
+public class ShowQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Dao dao=null;
 	
 	@Override
 	public void init() {
-		dao=new Dao("//localhost:3306/election_machine", "root", "Hh4497");
+		
+        String url = getServletContext().getInitParameter("jdbc:mysql:// localhost:3306/election_machine");
+        String user = getServletContext().getInitParameter("root");
+        String pass = getServletContext().getInitParameter("Hh4497");
+        
+		dao = new Dao(url, user , pass );
 	}
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowFish() {
+    public ShowQuestion() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,7 +48,7 @@ public class ShowFish extends HttpServlet {
 			list=dao.readAllQuestion();
 		}
 		else {
-			System.out.println("No connection to database2");
+			System.out.println("No connection to database3");
 		}
 		request.setAttribute("questionlist", list);
 		

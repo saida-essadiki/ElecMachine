@@ -1,9 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
  
  <%@ page import="java.util.ArrayList" %>   
- <%@ page import="data.Question" %>   
+ <%@ page import="data.Question" %>
+ <%@ page import="java.sql.Connection" %>  
+ <%@ page import="java.sql.DriverManager" %>   
+ <%@ page import="dao.Dao" %> 
+ <%@ page import="test.DbManager" %>   
+   
+ 
+  
     
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+ 
+    
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
@@ -35,45 +44,40 @@
         <form id="survey-form">
         	<!--  begin - just for test database connection -->
         	<div class="test"> 
-        	<p>Connction test</p>
+        	<p>HERE 1:</p>
         	<%
+			DbManager db = new DbManager();
+       		Connection conn = db.getConnection();
+       		if(conn == null){
+       			out.print("connection failed");
+       		}else{
+       			out.print("connection Done");
+
+       		}
         	
-        	%>
-        	<%
-			ArrayList<Question> questionList=(ArrayList<Question>)request.getAttribute("questionlist");
-			
-			for (int i=0;questionList!=null && i<questionList.size();i++){
-				Question f=questionList.get(i);
-				out.println(f.getId()+": "+f.getQuestion());
-			}
+
 			%>
         	</div>
         	<hr>
         	<!--  End - just for test database connection -->
 
             <div class="part3">
-                <ul>
-                 	<li>HERE2 :
-					<c:forEach var="question" items="${requestScope.questionlist}" >
-					<li> ${question.id}: ${question.questionText}
-					</c:forEach>
-				</ul>
-				<hr>
                 <div class="form-elements">
+					<form method="post" class="answer">
+                    	<label>Would you recommend More police in the city?</label><br>
 
-                    <label>Would you recommend More police in the city?</label><br>
-
-                    <p></p>
-                    <input type="radio" Class="recommend-radio" name="recommend-radio" >
-                    <label id="definitely">Definitely Agree</label><br>
-                    <input type="radio" Class="recommend-radio" name="recommend-radio">
-                    <label id="maybe">Agree</label><br>
-                    <input type="radio" Class="recommend-radio" name="recommend-radio" checked>
-                    <label id="not-sure">Middle opinion</label><br>
-                    <input type="radio" Class="recommend-radio" name="recommend-radio">
-                    <label id="not-sure">Disagree</label><br>
-                    <input type="radio" Class="recommend-radio" name="recommend-radio">
-                    <label id="not-sure">Completely disagree</label><br>
+	                    <p></p>
+	                    <input type="radio" Class="recommend-radio" name="recommend-radio" >
+	                    <label id="definitely">Definitely Agree</label><br>
+	                    <input type="radio" Class="recommend-radio" name="recommend-radio">
+	                    <label id="maybe">Agree</label><br>
+	                    <input type="radio" Class="recommend-radio" name="recommend-radio" checked>
+	                    <label id="not-sure">Middle opinion</label><br>
+	                    <input type="radio" Class="recommend-radio" name="recommend-radio">
+	                    <label id="not-sure">Disagree</label><br>
+	                    <input type="radio" Class="recommend-radio" name="recommend-radio">
+	                    <label id="not-sure">Completely disagree</label><br>
+                    </form>
                 </div>
             </div>
             <div class="bottons">
