@@ -7,7 +7,7 @@ public class Question {
 	public Question(String id, String questionText) {
 		// TODO Auto-generated constructor stub
 		setId(id);
-		this.questionText=questionText;
+		this.questionText = questionText;
 	}
 	public Question() {
 		// TODO Auto-generated constructor stub

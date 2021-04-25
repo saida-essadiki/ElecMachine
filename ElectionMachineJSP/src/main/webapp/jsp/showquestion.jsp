@@ -9,6 +9,7 @@
    
  
   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
     
  
     
@@ -54,9 +55,23 @@
        			out.print("connection Done");
 
        		}
+       		
+			ArrayList<Question> questionList=(ArrayList<Question>)request.getAttribute("questionlist");
+			
+			for (int i=0; questionList!=null && i<questionList.size();i++){
+				Question f = questionList.get(i);
+				out.println(f.getId()+": "+f.getQuestion());
+			}
         	
 
 			%>
+			<hr>
+			<ol>
+			<c:forEach var="question" items="${requestScope.questionlist}" >
+			<li>${question.id}: ${question.questionText}
+			</c:forEach>
+			</ol>
+			<hr>
         	</div>
         	<hr>
         	<!--  End - just for test database connection -->

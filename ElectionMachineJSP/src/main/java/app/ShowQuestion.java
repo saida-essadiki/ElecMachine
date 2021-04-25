@@ -16,7 +16,7 @@ import data.Question;
 /**
  * Servlet implementation class ShowFish
  */
-@WebServlet("/showfish")
+@WebServlet("/showquestion")
 public class ShowQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Dao dao=null;
@@ -24,11 +24,8 @@ public class ShowQuestion extends HttpServlet {
 	@Override
 	public void init() {
 		
-        String url = getServletContext().getInitParameter("jdbc:mysql:// localhost:3306/election_machine");
-        String user = getServletContext().getInitParameter("root");
-        String pass = getServletContext().getInitParameter("Hh4497");
-        
-		dao = new Dao(url, user , pass );
+		dao = new Dao("jdbc:mysql://localhost:3306/election_machine", "root", "Hh4497");
+
 	}
        
     /**
@@ -52,7 +49,7 @@ public class ShowQuestion extends HttpServlet {
 		}
 		request.setAttribute("questionlist", list);
 		
-		RequestDispatcher rd=request.getRequestDispatcher("/jsp/showfish.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("/jsp/showquestion.jsp");
 		rd.forward(request, response);
 	}
 }
