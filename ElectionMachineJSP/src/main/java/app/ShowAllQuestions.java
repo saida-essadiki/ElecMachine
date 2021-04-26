@@ -45,7 +45,7 @@ public class ShowAllQuestions extends HttpServlet {
 			list = dao.readAllQuestion();
 		}
 		else {
-			System.out.println("No connection to database for read questions");
+			System.out.println("No connection to database for read all questions");
 		}
 		request.setAttribute("questionlist", list);
 		

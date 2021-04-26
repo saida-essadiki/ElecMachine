@@ -37,62 +37,43 @@
         <p id="description">Answer these 20 questions to suggest the best candidates for you:</p>
     </div>
     <div class="form-container">
-
-        <form id="survey-form">
-        	<!--  begin - just for test database connection -->
-        	<div class="test"> 
-        	<p>HERE 1:</p>
-        	<%
-			DbManager db = new DbManager();
-       		Connection conn = db.getConnection();
-       		if(conn == null){
-       			out.print("connection failed");
-       		}else{
-       			out.print("connection Done");
-
-       		}
-       		
+       <form id="survey-form" method="post" name="answers" class="form-answer" action="../jsp/resault.jsp">
+       	<div class="question-text">
+	       	<%   		
 			ArrayList<Question> questionList=(ArrayList<Question>)request.getAttribute("questionlist");
 			
-			for (int i=0; questionList!=null && i<questionList.size();i++){
+			// give a number for test
+			int i = 5;
+			
+			if(i<19){
 				Question f = questionList.get(i);
-				out.println(f.getId()+": "+f.getQuestion());
-			}
-        	
-
+				out.println(f.getId()+" . "+f.getQuestion());
+			}else{			
+				out.println("There is no such question!");
+	        }		
 			%>
-
-            <div class="part3">
-                <div class="form-elements">
-					<form method="post" class="answer">
-                    	<label>Would you recommend More police in the city?</label><br>
-
-	                    <p></p>
-	                    <input type="radio" Class="recommend-radio" name="recommend-radio" >
-	                    <label id="definitely">Definitely Agree</label><br>
-	                    <input type="radio" Class="recommend-radio" name="recommend-radio">
-	                    <label id="maybe">Agree</label><br>
-	                    <input type="radio" Class="recommend-radio" name="recommend-radio" checked>
-	                    <label id="not-sure">Middle opinion</label><br>
-	                    <input type="radio" Class="recommend-radio" name="recommend-radio">
-	                    <label id="not-sure">Disagree</label><br>
-	                    <input type="radio" Class="recommend-radio" name="recommend-radio">
-	                    <label id="not-sure">Completely disagree</label><br>
-                    </form>
-                </div>
-            </div>
-            <div class="bottons">
-                <div id="Previous" class="submit">
-                        <input class="submit-botton" type="submit" value="Previous">
-                </div>
-                
-                <div id="next" class="submit">
-                        <input class="submit-botton" type="submit" value="next">
-                </div>
-            </div>
-            
-        </form>
-    
+		</div>
+		<hr>
+            <div class="form-elements">					
+			   <div class="radio-buttons">
+                  <input type="radio" Class="recommend-radio" name="recommend-radio" value="1">
+                  <label id="definitely">Definitely Agree</label><br>
+                  <input type="radio" Class="recommend-radio" name="recommend-radio" value="2">
+                  <label id="maybe">Agree</label><br>
+                  <input type="radio" Class="recommend-radio" name="recommend-radio" value="3" checked>
+                  <label id="not-sure">Middle opinion</label><br>
+                  <input type="radio" Class="recommend-radio" name="recommend-radio" value="4">
+                  <label id="not-sure">Disagree</label><br>
+                  <input type="radio" Class="recommend-radio" name="recommend-radio" value="5">
+                  <label id="not-sure">Completely disagree</label><br>
+              </div>
+              <div class="buttons">
+             	<input id="Previous" class="submit-button" type="submit" value="Previous">
+          		<input id="next" class="submit-button" type="submit" value="Next">
+              </div>
+           </div>
+      </form>
     </div>
+
   </body>
 </html>
