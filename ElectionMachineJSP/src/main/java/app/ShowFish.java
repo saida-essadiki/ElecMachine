@@ -43,7 +43,7 @@ public class ShowFish extends HttpServlet {
 			list=dao.readAllQuestion();
 		}
 		else {
-			System.out.println("No connection to database");
+			System.out.println("No connection to database2");
 		}
 		request.setAttribute("questionlist", list);
 		
