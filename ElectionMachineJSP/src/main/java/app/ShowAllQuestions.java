@@ -16,7 +16,7 @@ import data.Question;
 /**
  * Servlet implementation class ShowFish
  */
-@WebServlet("/showallquestions")
+@WebServlet("/showallquestion")
 public class ShowAllQuestions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Dao dao=null;

@@ -2,10 +2,13 @@
  
  <%@ page import="java.util.ArrayList" %>   
  <%@ page import="data.Question" %>
+ <%@ page import="data.CounterIndex" %>
+ 
  <%@ page import="java.sql.Connection" %>  
  <%@ page import="java.sql.DriverManager" %>   
  <%@ page import="dao.Dao" %> 
- <%@ page import="test.DbManager" %>   
+ <%@ page import="app.SaveAnswers" %>  
+ 
     
  
     
@@ -37,41 +40,52 @@
         <p id="description">Answer these 20 questions to suggest the best candidates for you:</p>
     </div>
     <div class="form-container">
-       <form id="survey-form" method="post" name="answers" class="form-answer" action="../jsp/resault.jsp">
+       <form id="survey-form" method="post" class="form-answer" action="./saveanswers">
        	<div class="question-text">
-	       	<%   		
+	       	<% 
+	       	// create index for questions for test
+			//CounterIndex j = new CounterIndex();
+			// out.println("your index is: "+ j.getIndex());
+	       	
 			ArrayList<Question> questionList=(ArrayList<Question>)request.getAttribute("questionlist");
 			
-			// give a number for test
-			int i = 5;
-			
+			// IMP The value is not coming to this page
+			//ArrayList<CounterIndex> index=(ArrayList<CounterIndex>)request.getAttribute("index");	
+			//int i =index.getIndex();
+			int i = 0;
 			if(i<19){
 				Question f = questionList.get(i);
 				out.println(f.getId()+" . "+f.getQuestion());
 			}else{			
-				out.println("There is no such question!");
+				out.println("There is no such question! \n");
 	        }		
+			
+
 			%>
+			
+			
 		</div>
 		<hr>
-            <div class="form-elements">					
-			   <div class="radio-buttons">
-                  <input type="radio" Class="recommend-radio" name="recommend-radio" value="1">
-                  <label id="definitely">Definitely Agree</label><br>
-                  <input type="radio" Class="recommend-radio" name="recommend-radio" value="2">
-                  <label id="maybe">Agree</label><br>
-                  <input type="radio" Class="recommend-radio" name="recommend-radio" value="3" checked>
-                  <label id="not-sure">Middle opinion</label><br>
-                  <input type="radio" Class="recommend-radio" name="recommend-radio" value="4">
-                  <label id="not-sure">Disagree</label><br>
-                  <input type="radio" Class="recommend-radio" name="recommend-radio" value="5">
-                  <label id="not-sure">Completely disagree</label><br>
-              </div>
-              <div class="buttons">
-             	<input id="Previous" class="submit-button" type="submit" value="Previous">
-          		<input id="next" class="submit-button" type="submit" value="Next">
-              </div>
-           </div>
+       	<div class="form-elements">					
+		   <div class="radio-buttons">
+                 <input type="radio" Class="recommend-radio" name="recommend-radio" value="1">
+                 <label id="definitely">Definitely Agree</label><br>
+                 <input type="radio" Class="recommend-radio" name="recommend-radio" value="2">
+                 <label id="maybe">Agree</label><br>
+                 <input type="radio" Class="recommend-radio" name="recommend-radio" value="3" checked>
+                 <label id="not-sure">Middle opinion</label><br>
+                 <input type="radio" Class="recommend-radio" name="recommend-radio" value="4">
+                 <label id="not-sure">Disagree</label><br>
+                 <input type="radio" Class="recommend-radio" name="recommend-radio" value="5">
+                 <label id="not-sure">Completely disagree</label><br>
+             </div>
+             <div class="buttons">
+            	<button id="previous" class="submit-button" type="submit"  name="action" value="previous">Previous</button>
+         		<button id="next" class="submit-button" type="submit"  name="action" value="next">Next</button>
+         		<button id="finish" class="submit-button" type="submit"  name="action" value="finish">Finish</button>
+         		
+             </div>
+        </div>
       </form>
     </div>
 

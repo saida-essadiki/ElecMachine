@@ -5,7 +5,7 @@
  <%@ page import="java.sql.Connection" %>  
  <%@ page import="java.sql.DriverManager" %>   
  <%@ page import="dao.Dao" %> 
- <%@ page import="test.DbManager" %>   
+ <%@ page import="data.CounterIndex" %>   
 
 
 
@@ -25,9 +25,10 @@
 	//ans[i] = Integer.parseInt(request.getParameter("recommend-radio"));
 	//out.println(ans[i]);
 	
-	ArrayList<Question> questionList=(ArrayList<Question>)request.getAttribute("questionlist");
-	Question f = questionList.get(i);
-	out.println(f.getId()+" . "+f.getQuestion());
+	// just for Test connection to database
+	//ArrayList<Question> questionList=(ArrayList<Question>)request.getAttribute("questionlist");
+	//Question f = questionList.get(i);
+	//out.println(f.getId()+" . "+f.getQuestion());
 
 	//num[i] = f.getId();
 	//question[i] = f.getQuestion();
