@@ -1,17 +1,17 @@
 package dao;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
-
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import data.Question;
+import data.CustomerAnswers;
 
-import java.sql.Connection;
 
 public class Dao {
 	private String url;
@@ -25,6 +25,8 @@ public class Dao {
 		this.pass=pass;
 	}
 	
+	// create getconnection method - create a connection to database 
+		
 	public boolean getConnection() {
 		try {
 	        if (conn == null || conn.isClosed()) {
@@ -34,6 +36,7 @@ public class Dao {
 	                throw new SQLException(e);
 	            }
 	            conn = DriverManager.getConnection(url, user, pass);
+	            System.out.println("conn is created!!");
 	        }
 	        return true;
 		}
@@ -42,16 +45,20 @@ public class Dao {
 			return false;
 		}
 	}
+	
+	// readAllQuestion() method
 	public ArrayList<Question> readAllQuestion() {
 		ArrayList<Question> list=new ArrayList<>();
 		try {
+			String sql = "SELECT * FROM questions";
+			getConnection();
 			Statement stmt=conn.createStatement();
-			ResultSet RS=stmt.executeQuery("select * from questions");
+			ResultSet RS=stmt.executeQuery(sql);
 			while (RS.next()){
-				Question f=new Question();
-				f.setId(RS.getInt("QUESTION_ID"));
-				f.setQuestion(RS.getString("QUESTION"));
-				list.add(f);
+				Question q=new Question();
+				q.setId(RS.getInt("QUESTION_ID"));
+				q.setQuestion(RS.getString("QUESTION"));
+				list.add(q);
 			}
 			return list;
 		}
@@ -59,12 +66,37 @@ public class Dao {
 			return null;
 		}
 	}
-	public ArrayList<Question> updateQuestion(Question f) {
+	
+	// readQuestion() method
+	public ArrayList<Question> readQuestion(Question q) {
+		ArrayList<Question> singleQuestion=new ArrayList<>();
 		try {
-			String sql="update questions set QUESTION=? where QUESTION_ID=?";
+			String sql="SELECT * FROM questions WHERE QUESTION_ID=?";
+			getConnection();
 			PreparedStatement pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, f.getQuestion());
-			pstmt.setInt(2, f.getId());
+			pstmt.setInt(1, q.getId());
+			ResultSet RS=pstmt.executeQuery(sql);
+
+			q.setId(RS.getInt("QUESTION_ID"));
+			q.setQuestion(RS.getString("QUESTION"));
+			singleQuestion.add(q);
+			return singleQuestion;
+
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
+	
+	
+	// update question text with updateQuestion(Question q) method
+	public ArrayList<Question> updateQuestion(Question q) {
+		try {
+			String sql="UPDATE questions SET QUESTION= ? WHERE QUESTION_ID=?";
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, q.getQuestion());
+			pstmt.setInt(2, q.getId());
 			pstmt.executeUpdate();
 			return readAllQuestion();
 		}
@@ -72,6 +104,8 @@ public class Dao {
 			return null;
 		}
 	}
+	
+	// deleteQuestion() method
 	public ArrayList<Question> deleteQuestion(String id) {
 		try {
 			String sql="delete from questions where QUESTION_ID=?";
@@ -84,7 +118,8 @@ public class Dao {
 			return null;
 		}
 	}
-
+	
+	// readQuestion method
 	public Question readQuestion(String id) {
 		Question f=null;
 		try {
@@ -98,6 +133,45 @@ public class Dao {
 				f.setQuestion(RS.getString("QUESTION"));
 			}
 			return f;
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
+	// update customer_answers table with customers answers customerAnswer(CustomerAnswers a) method
+	public ArrayList<CustomerAnswers> customerAnswer(CustomerAnswers a) {
+
+		try {
+
+
+			String sql="UPDATE CUSTOMER_ANSWERS SET ANSWER=? WHERE QUESTION=?";
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(2, a.getNumber());
+			pstmt.setInt(1, a.getAnswer());
+			pstmt.executeUpdate();
+			return readAllAnswers();
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
+	
+	// readAllAnswers() method
+	public ArrayList<CustomerAnswers> readAllAnswers() {
+		ArrayList<CustomerAnswers> list=new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM CUSTOMER_ANSWERS";
+			getConnection();
+			Statement stmt=conn.createStatement();
+			ResultSet RS=stmt.executeQuery(sql);
+			while (RS.next()){
+				CustomerAnswers q=new CustomerAnswers();
+				q.setNumber(RS.getInt("NUMBER"));
+				q.setAnswer(RS.getInt("ANSWER"));
+				list.add(q);
+			}
+			return list;
 		}
 		catch(SQLException e) {
 			return null;
