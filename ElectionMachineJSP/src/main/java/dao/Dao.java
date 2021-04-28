@@ -138,11 +138,13 @@ public class Dao {
 			return null;
 		}
 	}
-	// update customer_answers table with customers answers customerAnswer(Question q) method
+	// update customer_answers table with customers answers customerAnswer(CustomerAnswers a) method
 	public ArrayList<CustomerAnswers> customerAnswer(CustomerAnswers a) {
 
 		try {
-			String sql="UPDATE CUSTOMER_ANSWERS SET ANSWER= ? WHERE QUESTION=?";
+
+
+			String sql="UPDATE CUSTOMER_ANSWERS SET ANSWER=? WHERE QUESTION=?";
 			getConnection();
 			PreparedStatement pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(2, a.getNumber());

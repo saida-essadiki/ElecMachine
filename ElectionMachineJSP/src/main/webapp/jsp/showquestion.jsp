@@ -48,21 +48,20 @@
 			//CounterIndex j = new CounterIndex();
 			// out.println("your index is: "+ j.getIndex());
 	       	
-			//ArrayList<Question> questionList=(ArrayList<Question>)request.getAttribute("questionlist");
+			ArrayList<Question> questionList=(ArrayList<Question>)request.getAttribute("questionlist");
 			
 			// IMP The value is not coming to this page
 			//ArrayList<CounterIndex> index=(ArrayList<CounterIndex>)request.getAttribute("index");	
 			//int i =index.getIndex();
-			//int i = 0;
-			//if(i<19){
-			//	Question f = questionList.get(1);
-			//	out.println(f.getId()+" . "+f.getQuestion());
-			//}else{			
-			//	out.println("There is no such question! \n");
-	        //}		
+			int i = 0;
+			if(i<19){
+				Question f = questionList.get(i);
+				out.println(f.getId()+" . "+f.getQuestion());
+			}else{			
+				out.println("There is no such question! \n");
+	        }		
 
 			%>
-		<h3> My name is ${requestScope.text}</h3>
 			
 			
 		</div>

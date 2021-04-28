@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.Dao;
 import data.CounterIndex;
+import data.CustomerAnswers;
 import data.Question;
 
 /**
@@ -20,6 +22,14 @@ import data.Question;
 @WebServlet("/saveanswers")
 public class SaveAnswers extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private Dao dao=null;
+	
+	@Override
+	public void init() {
+		
+		dao = new Dao("jdbc:mysql://localhost:3306/election_machine", "root", "Hh4497");
+
+	}
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -31,17 +41,6 @@ public class SaveAnswers extends HttpServlet {
 
 	CounterIndex index = new CounterIndex();
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		int i =index.getIndex();
-		String text = "...";
-		text = "hello";
-		
-		request.setAttribute("text", text);
-		
-		RequestDispatcher rd=request.getRequestDispatcher("/jsp/showquestion.jsp");
-		rd.forward(request, response);
-	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -52,22 +51,19 @@ public class SaveAnswers extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		
-		String destination = "/jsp/showquestion.jsp";
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
+		//String destination = "/jsp/showquestion.jsp";
+		//RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
 		
 		// Bring questions array here and try to read specific question with index
-		ArrayList<Question> questionList=(ArrayList<Question>)request.getAttribute("questionlist");
-		String text = "...";
-		
-		
-		
-		
-		int i =index.getIndex();
-		Question f = questionList.get(i);
-		text = f.getId()+" . "+f.getQuestion();
-		request.setAttribute("text", text);
-		RequestDispatcher rd=request.getRequestDispatcher("showquestion");
-		rd.forward(request, response);	
+		//ArrayList<Question> questionList=(ArrayList<Question>)request.getAttribute("questionlist");
+		//String text = "...";
+
+		//int i =index.getIndex();
+		//Question f = questionList.get(i);
+		//text = f.getId()+" . "+f.getQuestion();
+		//request.setAttribute("text", text);
+		//RequestDispatcher rd=request.getRequestDispatcher("showquestion");
+		//rd.forward(request, response);	
 
 		
 		if("next".equals(action)) {
@@ -76,6 +72,16 @@ public class SaveAnswers extends HttpServlet {
 			index.higherIndex();
 			pw.println("index is "+ index.getIndex());
 			
+			// add answer to database
+			CustomerAnswers ca = new CustomerAnswers((index.getIndex()+1),ans);
+			ArrayList<CustomerAnswers> list=null;
+			if (dao.getConnection()) {
+				pw.println("connection is done");
+				list = dao.customerAnswer(ca);
+			}else {
+				pw.println("No connection");
+			}
+
 			//response.sendRedirect("showquestion");
 
 			
@@ -85,9 +91,13 @@ public class SaveAnswers extends HttpServlet {
 			index.lowerIndex();
 			pw.println("index is "+ index.getIndex());
 			
+			//response.sendRedirect("showquestion");
+
+			
 		}else {
 			//if click finish
-			pw.println("click finish and answer is "+ ans );
+			pw.println("click finish");
+			
 			response.sendRedirect("resault");
 				
 		}

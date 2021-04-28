@@ -2,30 +2,46 @@ package data;
 
 public class CustomerAnswers {
 
-	private int index;
+	private int number;
+	private int answer;
+
 	
 	public CustomerAnswers() {
 		// TODO Auto-generated constructor stub
 	}
-	public int getIndex() {
-		return index;
+	public CustomerAnswers(int number, int answer) {
+		this.number = number;
+		this.answer = answer;
 	}
-	public void setIndex(int index) {
-		this.index = index;
+	public int getNumber() {
+		return number;
 	}
-	public void setIndex(String index) {
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	public void setNumber(String number) {
 		try {
-			this.index = Integer.parseInt(index);
+			this.number = Integer.parseInt(number);
 		}
 		catch(NumberFormatException | NullPointerException e) {
 			//Do nothing - the value of id won't be changed
 		}
 	}
 	
-	public void higherIndex() {
-		index++;
+	public int getAnswer() {
+		return answer;
 	}
-	public void lowerIndex() {
-		index--;
+	public void setAnswer(int answer) {
+		this.answer = answer;
 	}
+	public void setAnswer(String answer) {
+		try {
+			this.answer = Integer.parseInt(answer);
+		}
+		catch(NumberFormatException | NullPointerException e) {
+			//Do nothing - the value of id won't be changed
+		}
+	}
+
+	
 }
