@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.Question;
+import data.CustomerAnswers;
+
 
 public class Dao {
 	private String url;
@@ -116,7 +118,8 @@ public class Dao {
 			return null;
 		}
 	}
-
+	
+	// readQuestion method
 	public Question readQuestion(String id) {
 		Question f=null;
 		try {
@@ -130,6 +133,43 @@ public class Dao {
 				f.setQuestion(RS.getString("QUESTION"));
 			}
 			return f;
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
+	// update customer_answers table with customers answers customerAnswer(Question q) method
+	public ArrayList<CustomerAnswers> customerAnswer(CustomerAnswers a) {
+
+		try {
+			String sql="UPDATE CUSTOMER_ANSWERS SET ANSWER= ? WHERE QUESTION=?";
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(2, a.getNumber());
+			pstmt.setInt(1, a.getAnswer());
+			pstmt.executeUpdate();
+			return readAllAnswers();
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
+	
+	// readAllAnswers() method
+	public ArrayList<CustomerAnswers> readAllAnswers() {
+		ArrayList<CustomerAnswers> list=new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM CUSTOMER_ANSWERS";
+			getConnection();
+			Statement stmt=conn.createStatement();
+			ResultSet RS=stmt.executeQuery(sql);
+			while (RS.next()){
+				CustomerAnswers q=new CustomerAnswers();
+				q.setNumber(RS.getInt("NUMBER"));
+				q.setAnswer(RS.getInt("ANSWER"));
+				list.add(q);
+			}
+			return list;
 		}
 		catch(SQLException e) {
 			return null;
