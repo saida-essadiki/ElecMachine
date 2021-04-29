@@ -17,7 +17,7 @@ import data.Question;
  * Servlet implementation class ShowFish
  */
 @WebServlet("/resault")
-public class Resault extends HttpServlet {
+public class Result extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Dao dao=null;
 	
@@ -31,7 +31,7 @@ public class Resault extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Resault() {
+    public Result() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,9 +47,9 @@ public class Resault extends HttpServlet {
 		else {
 			System.out.println("No connection to database for read questions");
 		}
-		request.setAttribute("questionlist", list);
+		//request.setAttribute("questionlist", list);
 		
-		RequestDispatcher rd=request.getRequestDispatcher("/jsp/resault.jsp");
-		rd.forward(request, response);
+		//RequestDispatcher rd=request.getRequestDispatcher("/jsp/result.jsp");
+		//rd.forward(request, response);
 	}
 }

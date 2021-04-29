@@ -2,10 +2,13 @@
  
  <%@ page import="java.util.ArrayList" %>   
  <%@ page import="data.Question" %>
+ <%@ page import="data.CounterIndex" %>
+  
  <%@ page import="java.sql.Connection" %>  
  <%@ page import="java.sql.DriverManager" %>   
  <%@ page import="dao.Dao" %> 
- <%@ page import="data.CounterIndex" %>   
+ <%@ page import="app.SaveAnswers" %>   
+ <%@ page import="data.CustomerAnswers" %>
 
 
 
@@ -27,7 +30,7 @@
 	
 	// just for Test connection to database
 	//ArrayList<Question> questionList=(ArrayList<Question>)request.getAttribute("questionlist");
-	//Question f = questionList.get(i);
+	//Question f = questionList.get(1);
 	//out.println(f.getId()+" . "+f.getQuestion());
 
 	//num[i] = f.getId();
@@ -35,6 +38,15 @@
 %>
 <body>
 <h1>Your Answers:</h1>
+<%
+ArrayList<CustomerAnswers> result=(ArrayList<CustomerAnswers>)request.getAttribute("qlist");
+
+//for (int j=0; result!=null && j<result.size();j++){
+//	CustomerAnswers ca= qlist.get(j);
+//	out.println(ca.getNumber()+": "+ ca.getAnswer());
+//}
+%>
+
 <table border="1">
 	<tbody>
 		<tr>

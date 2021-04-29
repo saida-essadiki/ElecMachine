@@ -159,7 +159,7 @@ public class Dao {
 	
 	// readAllAnswers() method
 	public ArrayList<CustomerAnswers> readAllAnswers() {
-		ArrayList<CustomerAnswers> list=new ArrayList<>();
+		ArrayList<CustomerAnswers> qlist=new ArrayList<>();
 		try {
 			String sql = "SELECT * FROM CUSTOMER_ANSWERS";
 			getConnection();
@@ -167,11 +167,11 @@ public class Dao {
 			ResultSet RS=stmt.executeQuery(sql);
 			while (RS.next()){
 				CustomerAnswers q=new CustomerAnswers();
-				q.setNumber(RS.getInt("NUMBER"));
+				q.setNumber(RS.getInt("QUESTION"));
 				q.setAnswer(RS.getInt("ANSWER"));
-				list.add(q);
+				qlist.add(q);
 			}
-			return list;
+			return qlist;
 		}
 		catch(SQLException e) {
 			return null;

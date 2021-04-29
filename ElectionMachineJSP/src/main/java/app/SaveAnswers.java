@@ -98,7 +98,18 @@ public class SaveAnswers extends HttpServlet {
 			//if click finish
 			pw.println("click finish");
 			
-			response.sendRedirect("resault");
+//			ArrayList<CustomerAnswers> qlist = null;
+//			if (dao.getConnection()) {
+//				qlist=dao.readAllAnswers();
+//			}
+//			else {
+//				System.out.println("No connection to database");
+//			}
+//			request.setAttribute("qlist", qlist);
+//			
+//			RequestDispatcher rd=request.getRequestDispatcher("/jsp/result.jsp");
+//			rd.forward(request, response);
+			response.sendRedirect("/jsp/result.jsp");
 				
 		}
 	}
